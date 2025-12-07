@@ -1,0 +1,165 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Kaboom Square Platformer</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<style>
+  html,body{height:100%;margin:0;background:#111;}
+  canvas{display:block;margin:0 auto;}
+  /* optional: make page fill window */
+  body { display:flex; align-items:center; justify-content:center; }
+</style>
+</head>
+<body>
+
+<script type="module">
+import kaboom from "https://unpkg.com/kaboom@next/dist/kaboom.mjs";
+
+kaboom({
+    global: true,
+    width: 800,
+    height: 480,
+    clearColor: [0.12,0.12,0.18,1],
+});
+
+const PLAYER_SIZE = 32;
+const SPEED = 240;
+const JUMP_FORCE = 520;
+const GRAVITY = 1200;
+
+gravity(GRAVITY);
+
+// platform factory
+function makePlat(x,y,w,h){
+    return add([
+        rect(w,h),
+        pos(x,y),
+        area(),
+        solid(),
+        color(0.3,0.6,0.9),
+    ]);
+}
+
+// level (simple)
+makePlat(0, height() - 32, width(), 32); // ground
+makePlat(180, 360, 140, 20);
+makePlat(420, 300, 140, 20);
+makePlat(80, 240, 100, 20);
+
+// player (square)
+const player = add([
+    rect(PLAYER_SIZE, PLAYER_SIZE),
+    pos(64, height() - 32 - PLAYER_SIZE),
+    area(),
+    body(),
+    color(0.9,0.4,0.4),
+]);
+
+// controls
+onKeyDown("left", () => {
+    player.move(-SPEED, 0);
+});
+onKeyDown("right", () => {
+    player.move(SPEED, 0);
+});
+onKeyPress("space", () => {
+    if (player.isGrounded()) {
+        player.jump(JUMP_FORCE);
+    }
+});
+
+// simple HUD
+add([
+    text("← → to move, Space to jump", { size: 18 }),
+    pos(8, 8),
+    fixed(),
+]);
+
+</script>
+
+</body>
+</html>
+```<!-- filepath: d:\Programming\www\index.html -->
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Kaboom Square Platformer</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<style>
+  html,body{height:100%;margin:0;background:#111;}
+  canvas{display:block;margin:0 auto;}
+  /* optional: make page fill window */
+  body { display:flex; align-items:center; justify-content:center; }
+</style>
+</head>
+<body>
+
+<script type="module">
+import kaboom from "https://unpkg.com/kaboom@next/dist/kaboom.mjs";
+
+kaboom({
+    global: true,
+    width: 800,
+    height: 480,
+    clearColor: [0.12,0.12,0.18,1],
+});
+
+const PLAYER_SIZE = 32;
+const SPEED = 240;
+const JUMP_FORCE = 520;
+const GRAVITY = 1200;
+
+gravity(GRAVITY);
+
+// platform factory
+function makePlat(x,y,w,h){
+    return add([
+        rect(w,h),
+        pos(x,y),
+        area(),
+        solid(),
+        color(0.3,0.6,0.9),
+    ]);
+}
+
+// level (simple)
+makePlat(0, height() - 32, width(), 32); // ground
+makePlat(180, 360, 140, 20);
+makePlat(420, 300, 140, 20);
+makePlat(80, 240, 100, 20);
+
+// player (square)
+const player = add([
+    rect(PLAYER_SIZE, PLAYER_SIZE),
+    pos(64, height() - 32 - PLAYER_SIZE),
+    area(),
+    body(),
+    color(0.9,0.4,0.4),
+]);
+
+// controls
+onKeyDown("left", () => {
+    player.move(-SPEED, 0);
+});
+onKeyDown("right", () => {
+    player.move(SPEED, 0);
+});
+onKeyPress("space", () => {
+    if (player.isGrounded()) {
+        player.jump(JUMP_FORCE);
+    }
+});
+
+// simple HUD
+add([
+    text("← → to move, Space to jump", { size: 18 }),
+    pos(8, 8),
+    fixed(),
+]);
+
+</script>
+
+</body>
+</html>
